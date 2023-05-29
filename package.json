@@ -1,0 +1,27 @@
+{
+  "name": "recipe-bank",
+  "version": "1.0.0",
+  "description": "App to fetch and add recipes",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanjaybenu/recipe-bank.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanjaybenu/recipe-bank/issues"
+  },
+  "homepage": "https://github.com/sanjaybenu/recipe-bank#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "mysql2": "^3.3.3",
+    "sequelize": "^6.31.1"
+  }
+}
