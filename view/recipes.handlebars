@@ -1,0 +1,20 @@
+  {{#each recipes}}
+
+Username: {{user.username}}
+
+Recipe: {{name}}
+
+{{/each}}
+{{#each recipes}}
+<div class="card mx-auto my-2" style="width: 18rem;">
+  <div class="card-body bg-primary">
+    <h5 class="card-title bg-warning">{{user.username}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{name}}</h6>
+    <p class="card-text">{{recipe}}.</p>
+    {{#each comments as |comment|}}
+     <p class="card-text">{{comment.comment}}.</p>
+     {{/each}}
+
+  </div>
+</div>
+{{/each}}
