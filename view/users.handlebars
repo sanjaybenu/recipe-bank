@@ -1,0 +1,18 @@
+{{#each users as |user| }}
+<div class="card mx-auto" style="width: 24rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><a href="/user/{{id}}">{{user.username}}</h5></a>
+    {{#if recipes.length}}
+{{#each recipes}}
+<a href="/recipe/{{id}}">
+    <p class="card-text">{{name}}</p>
+    </a>
+    <a href="/comments/{{id}}" >Read Comments</a>
+     {{/each}}
+     {{else}}
+    No recipes associated with this user
+{{/if}}
+  </div>
+</div>
+{{/each}}
