@@ -24,15 +24,15 @@ router.get("/users", async (req, res) => {
 
 router.get("/user/:id", async (req, res) => {
   const recipeData = await Recipe.findAll({
-    include: [{ model: Comment }, {model:User}],
+    include: [{ model: Comment }, { model: User }],
     where: { user_id: req.params.id },
   });
   const recipes = recipeData.map((recipe) => recipe.get({ plain: true }));
   //console.table(recipes)
-  if (recipes.length===0){
-    res.render('norecipe')
+  if (recipes.length === 0) {
+    res.render("norecipe");
   }
-  res.render('recipes',{recipes})
+  res.render("recipes", { recipes });
   //res.json(recipes);
   //res.render('users',{users})
   //res.render('register')
