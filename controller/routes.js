@@ -2,6 +2,7 @@
 // const router = express.Router();
 // const { User,Recipe,Comment } = require("../models");
 
+
 // ************** Routes for the main page ***************
 router.get("/", (req, res) => {
     // console.log('I am the route for the landing page')
@@ -12,13 +13,13 @@ router.get("/", (req, res) => {
   router.get("/login", (req, res) => {
     console.log('I am the route for the login page')
     res.json({msg:'I will render the landing page'})
-    //res.render("loginpage");
+    res.render("loginpage");
   })
   
   router.get("/register", (req, res) => {
     // console.log('I am the route for registration page')
-    // res.json({msg:'I will render the registration page'})
-    res.render("register");
+  //   res.json({msg:'I will render the registration page'})
+   res.render("register");
   });
 
   //*********Route for login in ***************
@@ -101,7 +102,7 @@ router.get("/", (req, res) => {
 
   router.get('/users/:id', async(req, res)=>{
 
-    const user = await User.findAll({
+    const user = await User.findOne({
 
         include:[{model: Recipe},{model: Comment}],
         where:{
@@ -118,7 +119,7 @@ router.get("/", (req, res) => {
   router.get('/recipes', async(req, res)=>{
 
     const recipes = await Recipe.findAll({
-        include:[{model: Recipe},{model:User}]
+        include:[{model: Comment},{model:User}]
     })
     //res.render('user',{users})
     res.json(recipes)
@@ -126,7 +127,7 @@ router.get("/", (req, res) => {
 
   router.get('/recipes/:id', async(req, res)=>{
 
-    const recipe = await Recipe.findAll({
+    const recipe = await Recipe.findOne({
 
         include:[{model: User},{model: Comment}],
         where:{
@@ -134,7 +135,7 @@ router.get("/", (req, res) => {
         }
 
     })
-   // res.render('user',{user})
+   // res.render('user',{recipe})
    res.json(recipe)
   })
 
@@ -159,8 +160,14 @@ router.get("/", (req, res) => {
     }
 
      await Recipe.create(newRecipe);
-     const id = newRecipe.id
-     res.redirect(`/recipes/:${id}`)
+     const recipe =await Recipe.findOne({
+        where:{
+            name: req.body.name
+        }
+     })
+     const id = recipe.id
+     res.json({newId: `${id}`})// to be commented out for render
+     //res.redirect(`/recipes/:${id}`) to be decommented for render
   })
 
   //*************** Routes for posting Comments ***********************//
@@ -174,7 +181,6 @@ router.get("/", (req, res) => {
     })
 
     const userId = user.id
-
     const recipe = await Recipe.findOne({
         where:{
             name: req.body.recipeName
@@ -182,7 +188,7 @@ router.get("/", (req, res) => {
     })
 
     const recipeId = recipe.id
-
+    console.log(`Recipe id is ${recipeId}`)
     const newComment = {
         comment: req.body.comment,
         user_id : userId,
@@ -190,8 +196,9 @@ router.get("/", (req, res) => {
     }
     // fill up the new code
 
-     Recipe.create(newComment);
-     res.redirect(`/recipes/:${recipeId}`)
+     await Comment.create(newComment);
+     res.json(newComment)// cooment pout for rendering
+    // res.redirect(`/recipes/:${recipeId}`)// Decomment to render
   })
 
 
