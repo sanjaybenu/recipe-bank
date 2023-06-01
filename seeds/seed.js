@@ -21,21 +21,24 @@ const userData = [
 
 const recipeData = [
   {
-    name: 'cuisine1',
+    name: 'dish1',
     recipe: 'Recipe 1 content',
     cuisine: 'Indian',
+    food_img:'https://c4.wallpaperflare.com/wallpaper/869/719/717/cuisine-food-india-indian-wallpaper-preview.jpg',
     user_id: 1
   },
   {
-    name: 'cuisine2',
+    name: 'dish2',
     recipe: 'Recipe 2 content',
     cuisine: 'Italian',
+    food_img:'https://c4.wallpaperflare.com/wallpaper/234/543/684/food-pizza-wallpaper-preview.jpg',
     user_id: 2
   },
   {
-    name: 'cuisine3',
+    name: 'dish 3',
     recipe: 'Recipe 3 content',
     cuisine: 'Mexican',
+    food_img:'https://c4.wallpaperflare.com/wallpaper/570/745/92/comida-mexico-plato-tacos-wallpaper-preview.jpg',
     user_id: 1
   }
 ];
