@@ -66,23 +66,29 @@ router.post('/add-recipes', async(req, res)=>{
 
 // ****** recipe page  *****
 
-router.get('/recipes/:id', async(req, res)=>{
-
-    const recipe = await Recipe.findOne({
-
-        include:[{model: User},{model: Comment}],
-        where:{
-            id: req.params.id
+router.get('/recipes/:id', async (req, res) => {
+    try {
+      const recipe = await Recipe.findOne({
+        include: [{ model: User }, { model: Comment }],
+        where: {
+          id: req.params.id
         }
-
-    })
-    if (!recipe){
-        console.log('No recipe found')
+      });
+  
+      if (!recipe) {
+        console.log('No recipe found');
+        // You might want to handle this case appropriately, such as showing an error message
+      }
+  
+      const renderRecipe = recipe.get({ plain: true });
+      res.render('dish', { renderRecipe });
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to fetch recipe' });
     }
-    const renderRecipe =recipe.get({plain:true})
-   res.render('dish',{renderRecipe})
-  // res.json(renderRecipe)
-  })
+  });
+  
 
 // comment post
 router.post('/comments', async(req, res)=>{
