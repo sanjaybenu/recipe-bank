@@ -1,0 +1,31 @@
+<div class="header_add_recipe"></div>
+
+<form action="/add-recipes" method="POST">
+  <div class="card add_recipe_card">
+    <h3 class="card-header">Fill List to add recipe</h3>
+    <div class="card-body">
+      <div class="mb-3">
+        <label for="name" class="form-label">Dish Name:</label>
+        <input type="text" class="form-control" id="username" name="name">
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username:</label>
+        <input type="text" class="form-control" id="comment" name="username">
+      </div>
+      <div class="mb-3">
+        <label for="recipe" class="form-label">Enter Recipe:</label>
+        <textarea class="form-control" id="inputIngredients" rows="3" type="text" name="recipe"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="recipe" class="form-label"> cuisine:</label>
+        <textarea class="form-control" id="cuisine" rows="3" type="text" name="cuisine"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="food_img" class="form-label">Enter Image URL:</label>
+        <input type="text" class="form-control" id="imageURL" placeholder="Only accepts URL Image" name="food_img">
+      </div>
+
+      <button class="btn btn-primary" id="myBtn">submit</button>
+    </div>
+  </div>
+</form>

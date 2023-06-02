@@ -2,215 +2,201 @@ const express = require("express");
 const router = express.Router();
 const { User, Recipe, Comment } = require("../models");
 
-// ****** Landing Page and Register Routes *****
+// ****** Landing Page  *****
 
 router.get("/", (req, res) => {
-  res.render("login");
+  res.render("landingpage");
 });
+
+// ****** recipes page  *****
+
+router.get("/recipes", async (req, res) => {
+    const recipeData = await Recipe.findAll({ include: [{ model: User }] });
+    const recipes = recipeData.map((recipe) => recipe.get({ plain: true }));
+    res.render("recipes", { recipes });
+  });
+
+
+// ****** users page  *****
+
+router.get("/users", async (req, res) => {
+    const userData = await User.findAll({ include: [{ model: Recipe }] });
+    const users = userData.map((user) => user.get({ plain: true }));
+    res.render("users", { users });
+  });
+
+
+// ****** Add recipe page  *****
+
+router.get("/add-recipe", (req, res) => {
+    res.render("addRecipe");
+});
+
+router.post('/add-recipes', async(req, res)=>{
+
+  const user = await User.findOne({
+      where:{
+          username: req.body.username
+      }
+  })
+
+  // fill up the new code
+  const userId = user.id
+  const newRecipe ={
+      name: req.body.name,
+      recipe: req.body.recipe,
+      food_img: req.body.food_img,
+      cuisine: req.body.cuisine,
+      user_id: userId
+
+  }
+ console.log(newRecipe)
+   await Recipe.create(newRecipe);
+   const recipe =await Recipe.findOne({
+      where:{
+          name: req.body.name
+      }
+   })
+   const id = recipe.id
+//    res.json({newId: `${id}`})// to be commented out for render
+   res.redirect(`/recipes/${id}`) //to be decommented for render
+})
+
+
+
+// ****** recipe page  *****
+
+router.get('/recipes/:id', async (req, res) => {
+    try {
+      const recipe = await Recipe.findOne({
+        include: [{ model: User }, { model: Comment }],
+        where: {
+          id: req.params.id
+        }
+      });
+  
+      if (!recipe) {
+        console.log('No recipe found');
+        // You might want to handle this case appropriately, such as showing an error message
+      }
+  
+      const renderRecipe = recipe.get({ plain: true });
+      res.render('dish', { renderRecipe });
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to fetch recipe' });
+    }
+  });
+  
+
+// comment post
+router.post('/comments', async(req, res)=>{
+
+    const user = await User.findOne({
+        where:{
+            username: req.body.username
+        }
+    })
+
+    const userId = user.id
+    
+    const recipe = await Recipe.findOne({
+        where:{
+            name: req.body.recipeName
+        }
+    })
+
+    const recipeId = recipe.id
+
+    console.log(`Recipe id is ${recipeId}`)
+    const newComment = {
+        comment: req.body.comment,
+        user_id : userId,
+        recipe_id: recipeId
+    }
+    // fill up the new code
+
+     await Comment.create(newComment);
+     res.json(newComment)// comment out for rendering
+    // res.redirect(`/recipes/:${recipeId}`)// Decomment to render
+
+  })
+
+
+// ****** register *****
 
 router.get("/register", (req, res) => {
   res.render("register");
 });
 
-// ******** User Routes *********
+router.post('/register', async(req, res)=>{
 
-router.get("/users", async (req, res) => {
-  const userData = await User.findAll({ include: [{ model: Recipe }] });
-  const users = userData.map((user) => user.get({ plain: true }));
-  //res.json(users)
-  res.render("users", { users });
-  //res.render('register')
-});
-
-router.get("/user/:id", async (req, res) => {
-  const recipeData = await Recipe.findAll({
-    include: [{ model: Comment }, {model:User}],
-    where: { user_id: req.params.id },
-  });
-  const recipes = recipeData.map((recipe) => recipe.get({ plain: true }));
-  //console.table(recipes)
-  if (recipes.length===0){
-    res.render('norecipe')
-  }
-  res.render('recipes',{recipes})
-  //res.json(recipes);
-  //res.render('users',{users})
-  //res.render('register')
-});
-
-router.post("/user", async (req, res) => {
-  try {
-    const user = {
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    };
-
-    await User.create(user);
-    res.status(200).json({ Success: "New User Created" });
-  } catch (err) {
-    res.status(500).json({ Error: "Something Went Wrong" });
-  }
-});
-
-//********** Recipe Routes *************
-
-router.get("/recipe/:id", async (req, res) => {
-  const recipeData = await Recipe.findAll({
-    include: [{ model: Comment }],
-    where: { id: req.params.id },
-  });
-  const recipes = recipeData.map((recipe) => recipe.get({ plain: true }));
-  res.json(recipes);
-  //console.table(recipes)
-  //res.render('users',{users})
-  //res.render('register')
-});
-
-// router.get('/user', async(req , res)=>{
-//     const userData = await User.findAll({where:{
-//         username: 'jacksong'
-//     }})
-//     const id = userData[0].id
-//    // const users = userData.map((user)=>user.get({plain:true}))
-//     res.json({id:`${id}`})
-//     //res.json(userData)
-//     //res.render('users',{users})
-//     //res.render('register')
-// });
-
-router.get("/recipe", async (req, res) => {
-  const recipeData = await Recipe.findAll({
-    where: {
-      name: "cuisine1",
-    },
-  });
-  const id = recipeData[0].id;
-  // const users = userData.map((user)=>user.get({plain:true}))
-  res.json({ id: `${id}` });
-  //res.json(userData)
-  //res.render('users',{users})
-  //res.render('register')
-});
-
-router.post("/recipe", async (req, res) => {
-  // const recipe = await Recipe.findOne({where:
-  //  { name: req.body.name}});
-  //  const recipeId = recipe.dataValues.id
-  const user = await User.findOne({ where: { username: req.body.username } });
-  const userId = user.id;
-  // console.log(userId)
-  const newRecipe = {
-    name: req.body.name,
-    recipe: req.body.recipe,
-    cuisine: req.body.cuisine,
-    user_id: userId,
-  };
-  Recipe.create(newRecipe);
-  res.status(200).json({ Success: "Recipe Created" });
-});
-
-// *********** Comments Routes **************
-
-router.get("/comments", async (req, res) => {
-  const comments = await Comment.findAll({
-    include: [{ model: User }, { model: Recipe }],
-  });
-
-  res.status(200).json(comments);
-});
-
-router.get("/comments/:id", async (req, res) => {
-  const comments = await Comment.findAll({
-    include: [{ model: User }, { model: Recipe }],
-    where: {
-      recipe_id: req.params.id,
-    },
-  });
-  res.status(200).json(comments);
-});
-
-// ************ check how to extract data ************** //
-router.get("/comments/:id", async (req, res) => {
-  const recipeId = req.params.id;
-  const comments = await Comment.findAll({
-    where: {
-      recipe_id: recipeId,
-    },
-  });
-  const userNamePromises = comments.map((user) =>
-    User.findOne({
-      where: {
-        id: user.user_id,
-      },
+    const existingUser = await User.findAll({
+        where:{
+            username: req.body.username
+        }
     })
-  );
-  const users = await Promise.all(userNamePromises);
-  const userNames = users.map((user) => user.username);
-  const data = [comments, userNames];
-  res.status(200).json(data);
-});
+    console.log(existingUser)
+    if (existingUser.length!=0){
+        //res.render('existinguser')
+        res.json({error:'You are already registered please login'})
+    }
+    else{
 
-router.post("/comments", async (req, res) => {
-  const recipe = await Recipe.findOne({ where: { name: req.body.name } });
-  const recipeId = recipe.dataValues.id;
-  const user = await User.findOne({ where: { username: req.body.username } });
-  const userId = user.id;
-  // console.log(userId)
-  const newComment = {
-    comment: req.body.comment,
-    recipe_id: recipeId,
-    user_id: userId,
-  };
-  Comment.create(newComment);
-  res.status(200).json({ Success: "Comment Created" });
-});
+    const hashedPassword = req.body.password // do hashing here
 
-router.post("/comments", async (req, res) => {
-  const recipe = await Recipe.findOne({ where: { name: req.body.name } });
-  const recipeId = recipe.dataValues.id;
-  const user = await User.findOne({ where: { username: req.body.username } });
-  const userId = user.id;
-  // console.log(userId)
-  const newComment = {
-    comment: req.body.comment,
-    recipe_id: recipeId,
-    user_id: userId,
-  };
-  Comment.create(newComment);
-  res.status(200).json({ Success: "Comment Created" });
-});
+     const newUser = { 
+        username: req.body.username,
+        email: req.body.email,
+        password: hashedPassword,
+     }
 
-//*****************************************
-//**********                       ********
-//**********     Test Routes       ********
-//**********                       ********
-//*****************************************
-router.get("/test/:id", async (req, res) => {
-  try {
-    const user = await Comment.findAll({
-      where: {
-        recipe_id: req.params.id,
-      },
-    });
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json({ error: "Something Went Wrong" });
-  }
-});
+     User.create(newUser);
+     res.redirect('/')
+    }
+  })
 
-router.post("/test", async (req, res) => {
-  //create variables for user_id and recipe_id
-  try {
-    const user = await Comment.create({
-      user_id: userId, // use username for userId
-      recipe_id: recipeId, // use recipe  name for recipe id
-      comment: comment,
-    });
-    res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json({ error: "Something Went Wrong" });
-  }
-});
 
-module.exports = router;
+// ****** login *****
+router.get("/login", (req, res) => {
+    res.render("login");
+
+})
+router.post('/login', async(req,res)=> {
+    const user = await User.findAll({
+        where:{
+            username: req.body.username
+        }
+    }
+    )
+    if (user.length===0){
+        // res.json({msg:'No user found'})
+        res.render('nouser')
+        // return
+
+    }else{
+        const hashPassword = req.body.password
+        
+        const password = await User.findAll ({
+         where:{
+            password: hashPassword
+
+         }   
+        }) 
+        console.log(password)
+        if(password.length===0){
+           res.render('wrongpassword')
+        //    res.json({msg:'Password do not match'})
+        }
+        else{
+            res.redirect('/')
+            const loggedIn = true;
+            return loggedIn;
+        }
+    
+    } 
+  })
+
+
+  module.exports = router;

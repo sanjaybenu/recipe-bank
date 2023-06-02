@@ -1,4 +1,108 @@
-body{
+body {
+    background-color: #FBF9EE;
+  }
+  
+  .c-item {
+    height: 500px;
+  }
+  
+  .c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+  }
+  
+  .no-underline {
+    text-decoration: none;
+  }
+  
+  .recipes_border {
+    margin-top: 50px;
+    margin-left: 300px;
+  }
+  
+  .navbar {
+    box-shadow: 0px 8px 8px -8px rgba(0, 0, 0, 0.8);
+  }
+  
+  .recipes_header {
+    margin-top: 100px;
+    margin-left: 40px;
+  }
+  
+  .users-card {
+    margin-top: 30px;
+    margin-left: 25%;
+  }
+  
+  .users_header {
+    margin-top: 80px;
+    margin-left: 40px;
+  }
+  
+  .users_username {
+    color: black;
+  }
+  
+  .dish_img {
+    height: 50%;
+  }
+  
+  .landingpage_artical {
+    text-align: center;
+    margin: 100px;
+  }
+  
+  footer {
+    margin-top:200px;
+  }
+  .line {
+    border-top: 5px dotted rgb(0,128,128);
+  }
+  .footer_container{
+    margin-left:130px;
+    width: 1000px;
+    height: 50px;
+    
+  }
+  .footer_text{
+    margin-left: 400px;
+    color: black;
+  }
 
-    background-color: aquamarine;
+  .recipes_card:hover {
+    box-shadow: 5px 5px 5px 5px rgb(38,183,197);
+  }
+  .recipes_card{
+    margin-bottom: 1000px;
+  }
+
+  .header_add_recipe{
+    margin-top: 100px;
+    margin-left: 40px;
+  }
+
+  .dish_card{
+    margin-top: 100px;
+
+  }
+  .register_header{
+    margin-top: 80px;
+    margin-left: 300px;
+    margin-bottom:10px;
+
+  }
+  .add_recipe_card{
+    margin:50px;
+  }
+
+  .modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none;    
+}
+
+
+.wrong_login{
+  margin-left: 400px;
+  margin-top: 250px;
 }

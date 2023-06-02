@@ -1,36 +1,60 @@
+<h1 class="users_header"> Our Users:</h1>
+
 {{#each users as |user| }}
+<div class="card users-card" style="width: 18rem;">
+  <div class="card-header ">
+    <h3 class=" no-underline users_username">{{user.username}}</h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    {{#if recipes.length}}
+    {{#each recipes}}
+    <li class="list-group-item"><a href="/recipes/{{id}}">
+        <p class="card-text">{{name}}</p>
+      </a></li>
+    {{/each}}
+    {{else}}
+    No recipes associated with this user
+    {{/if}}
+  </ul>
+</div>
+{{/each}}
+
+
+
+
+{{!-- {{#each users as |user| }}
 <div class="card mx-auto" style="width: 24rem;">
   <img src="..." class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title"><a href="/user/{{id}}">{{user.username}}</h5></a>
     {{#if recipes.length}}
-{{#each recipes}}
-<a href="/recipe/{{id}}">
-    <p class="card-text">{{name}}</p>
+    {{#each recipes}}
+    <a href="/recipe/{{id}}">
+      <p class="card-text">{{name}}</p>
     </a>
-    <a href="/comments/{{id}}" >Read Comments</a>
-     {{/each}}
-     {{else}}
+    <a href="/comments/{{id}}">Read Comments</a>
+    {{/each}}
+    {{else}}
     No recipes associated with this user
-{{/if}}
+    {{/if}}
   </div>
 </div>
-{{/each}}
+{{/each}} --}}
 
 {{!-- {{#each users as |user| }}
 <a href="user/{{id}}">
-<div class="user">
-<h2>Name: {{user.username}}</h2>
-<h5>Email:{{user.email}}</h5>
-</div>
+  <div class="user">
+    <h2>Name: {{user.username}}</h2>
+    <h5>Email:{{user.email}}</h5>
+  </div>
 </a>
 {{#if recipes.length}}
 {{#each recipes}}
 <a href="recipe/{{id}}">
-<div>
-<h3>{{name}}</h3>
-{{/each}}
-</div>
+  <div>
+    <h3>{{name}}</h3>
+    {{/each}}
+  </div>
 </a>
 {{else}}
 No recipes associated with this user
