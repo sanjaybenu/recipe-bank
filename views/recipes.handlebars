@@ -1,21 +1,26 @@
+<h1 class="recipes_header">Recipes From Around the World:</h1>
 
-{{#each recipes}}
+<div>
+  <div class="recipes_border">
+    {{#each recipes}}
 
-Username: {{user.username}}
+    <div class="card mb-3 recipes_card" style="max-width: 540px;">
+      <a href="/recipes/{{id}}" class="no-underline">
+        <div class="row g-0">
+          <div class="col-md-4">
 
-Recipe: {{name}}
-
-{{/each}}
-{{#each recipes}}
-<div class="card mx-auto my-2" style="width: 18rem;">
-  <div class="card-body bg-primary">
-    <h5 class="card-title bg-warning">{{user.username}}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{name}}</h6>
-    <p class="card-text">{{recipe}}.</p>
-    {{#each comments as |comment|}}
-     <p class="card-text">{{comment.comment}}.</p>
-     {{/each}}
-
+            <img src="{{food_img}}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{name}}</h5>
+              <p class="card-text">By:{{user.username}}</p>
+              <p class="card-text"><small class="text-muted">{{cuisine}}</small></p>
+            </div>
+          </div>
+        </div>
+    </div>
+    </a>
+    {{/each}}
   </div>
 </div>
-{{/each}}
