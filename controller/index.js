@@ -118,8 +118,8 @@ router.post('/comments', async(req, res)=>{
     // fill up the new code
 
      await Comment.create(newComment);
-     res.json(newComment)// comment out for rendering
-    // res.redirect(`/recipes/:${recipeId}`)// Decomment to render
+    //  res.json(newComment)// comment out for rendering
+    res.redirect(`/recipes/${recipeId}`)// Decomment to render
 
   })
 
