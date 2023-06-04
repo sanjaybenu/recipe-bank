@@ -6,7 +6,7 @@ const { User, Recipe, Comment } = require("../models");
 // ****** Landing Page  *****
 
 router.get("/", (req, res) => {
-  res.render("landingpage");
+res.render("landingpage",{loggedIn:req.session.loggedIn});
 });
 
 // ****** recipes page  *****
@@ -14,7 +14,8 @@ router.get("/", (req, res) => {
 router.get("/recipes", async (req, res) => {
     const recipeData = await Recipe.findAll({ include: [{ model: User }] });
     const recipes = recipeData.map((recipe) => recipe.get({ plain: true }));
-    res.render("recipes", { recipes });
+    
+      res.render("recipes",{recipes, loggedIn: req.session.loggedIn})
   });
 
 
@@ -23,14 +24,15 @@ router.get("/recipes", async (req, res) => {
 router.get("/users", async (req, res) => {
     const userData = await User.findAll({ include: [{ model: Recipe }] });
     const users = userData.map((user) => user.get({ plain: true }));
-    res.render("users", { users });
+      res.render("users", { users, loggedIn: req.session.loggedIn})
+   
   });
 
 
 // ****** Add recipe page  *****
 
 router.get("/add-recipe", (req, res) => {
-    res.render("addRecipe");
+  res.render("addRecipe", {loggedIn:req.session.loggedIn})
 });
 
 router.post('/add-recipes', async(req, res)=>{
@@ -78,18 +80,20 @@ router.get('/recipes/:id', async (req, res) => {
   
       if (!recipe) {
         console.log('No recipe found');
+        res.render('norecipe')
         // You might want to handle this case appropriately, such as showing an error message
       }
   
       const renderRecipe = recipe.get({ plain: true });
-      res.render('dish', { renderRecipe });
+      
+   //  res.json(renderRecipe)
+   res.render('dish', { renderRecipe,loggedIn:req.session.loggedIn});
   
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Failed to fetch recipe' });
     }
   });
-  
 
 // comment post
 
@@ -112,7 +116,7 @@ router.post('/comments', async(req, res)=>{
 
     const recipeId = recipe.id
 
-    console.log(`Recipe id is ${recipeId}`)
+  //  console.log(`Recipe id is ${recipeId}`)
     const newComment = {
         comment: req.body.comment,
         timestamp: req.body.timestamp,
@@ -141,24 +145,30 @@ router.post('/register', async(req, res)=>{
             username: req.body.username
         }
     })
-    console.log(existingUser)
+    //console.log(existingUser)
     if (existingUser.length!=0){
-        //res.render('existinguser')
-        res.json({error:'You are already registered please login'})
+        res.render('existinguser')
+       // res.json({error:'You are already registered please login'})
     }
     else{
 
-    const hashedPassword = req.body.password // do hashing here
+   // const hashedPassword = req.body.password // do hashing here
 
      const newUser = { 
         username: req.body.username,
         email: req.body.email,
-        password: hashedPassword,
+        password: req.body.password,
      }
 
      User.create(newUser);
-     res.redirect('/')
+     res.render('landingpage')
+     req.session.save(() => {
+      req.session.loggedIn = true;
+
+      res.redirect('/');
+     })
     }
+     
   })
 
 
@@ -168,39 +178,49 @@ router.get("/login", (req, res) => {
 
 })
 router.post('/login', async(req,res)=> {
-    const user = await User.findAll({
-        where:{
-            username: req.body.username
-        }
-    }
-    )
-    if (user.length===0){
-        // res.json({msg:'No user found'})
-        res.render('nouser')
-        // return
+  const dbUserData = await User.findOne({
+    where: {
+      username: req.body.username
+    },
+  });
 
-    }else{
-        const hashPassword = req.body.password
-        
-        const password = await User.findAll ({
-         where:{
-            password: hashPassword
+  if (!dbUserData) {
+    res
+      .status(400)
+      .render('nouser');
+    return;
+  }
 
-         }   
-        }) 
-        console.log(password)
-        if(password.length===0){
-           res.render('wrongpassword')
-        //    res.json({msg:'Password do not match'})
-        }
-        else{
-            res.redirect('/')
-            const loggedIn = true;
-            return loggedIn;
-        }
-    
-    } 
+  const validPassword = await dbUserData.checkPassword(req.body.password);
+
+  if (!validPassword) {
+    res
+      .status(400)
+      .render('nouser');
+    return;
+  }
+
+  req.session.save(() => {
+    req.session.loggedIn = true;
+
+    res
+      .status(200)
+      .redirect('/');
+  });
+
   })
+
+
+  // logout route
+  router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
+  });
 
 
   module.exports = router;

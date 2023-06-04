@@ -1,3 +1,5 @@
+{{#if loggedIn}}
+
 <h1 class="users_header"> Our Users:</h1>
 
 {{#each users as |user| }}
@@ -18,3 +20,6 @@
   </ul>
 </div>
 {{/each}}
+{{else}}
+<h2 class="recipes_header">Please log in to access this page</h2>
+{{/if}}

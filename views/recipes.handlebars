@@ -1,5 +1,5 @@
 <h1 class="recipes_header">Recipes From Around the World:</h1>
-
+{{#if loggedIn}}
 <div>
   <div class="recipes_border">
     {{#each recipes}}
@@ -24,3 +24,6 @@
     {{/each}}
   </div>
 </div>
+{{else}}
+<h2 class="recipes_header">Please log in to access this page</h2>
+{{/if}}
