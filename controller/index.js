@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+var moment = require('moment');
 const { User, Recipe, Comment } = require("../models");
 
 // ****** Landing Page  *****
@@ -91,6 +92,8 @@ router.get('/recipes/:id', async (req, res) => {
   
 
 // comment post
+
+
 router.post('/comments', async(req, res)=>{
 
     const user = await User.findOne({
@@ -112,6 +115,7 @@ router.post('/comments', async(req, res)=>{
     console.log(`Recipe id is ${recipeId}`)
     const newComment = {
         comment: req.body.comment,
+        timestamp: req.body.timestamp,
         user_id : userId,
         recipe_id: recipeId
     }
