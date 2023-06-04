@@ -43,29 +43,29 @@ const recipeData = [
   }
 ];
 
-const commentData = [
-  {
-    comment: 'Comment 1',
-    recipe_id: 1,
-    user_id: 2
-  },
-  {
-    comment: 'Comment 2',
-    recipe_id: 1,
-    user_id: 3
-  },
-  {
-    comment: 'Comment 3',
-    recipe_id: 3,
-    user_id: 3
-  }
-];
+// const commentData = [
+//   {
+//     comment: 'Comment 1',
+//     recipe_id: 1,
+//     user_id: 2
+//   },
+//   {
+//     comment: 'Comment 2',
+//     recipe_id: 1,
+//     user_id: 3
+//   },
+//   {
+//     comment: 'Comment 3',
+//     recipe_id: 3,
+//     user_id: 3
+//   }
+// ];
 
 const seed = async () => {
   await sequelize.sync({ force: true });
   await User.bulkCreate(userData);
   await Recipe.bulkCreate(recipeData);
-  await Comment.bulkCreate(commentData);
+  // await Comment.bulkCreate(commentData);
 
   process.exit(0);
 };
