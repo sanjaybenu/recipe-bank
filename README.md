@@ -12,17 +12,18 @@
 ## Description
 This application is designed for food lovers and anyone that wants to cook something new.
 Through this app users can read recipes posted by users. Make comments or read comments on a recipe and can post their own recipes and share with the community. This allows the user to exprience different kinds of culture and cusines such as middle eastern, indian, french, japanese ect.
+##
 These are the dependaces that we used:
-    "bcrypt" - Bcrypt turns a simple password into fixed-length characters called a hash.
-    "connect-session-sequelize" - Connect-session-sequelize is a SQL session store using Sequelize.js.
-    "dotenv" - Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env. 
-    "express" - Write handlers for requests with different HTTP verbs at different URL paths (routes).
-    "express-handlebars" - Handlebars compiles templates into JavaScript functions.
-    "express-session" - Middleware module in Express. js that allows you to create sessions in your web application.
-    "moment" - Allows displaying of date as per localization and in human readable format.
-    "mysql2" - Creates a database for storing and manipulating data, defining the relationship of each table.
-    "nodemon" - Nodemon is a command-line tool that helps with the speedy development of Node. js applications.
-    "sequelize" - Sequelize is a Node. js-based Object Relational Mapper that makes it easy to work with MySQL, MariaDB, SQLite, PostgreSQL databases, and more. An Object Relational Mapper performs functions like handling database records by representing the data as objects.
+   * "bcrypt" - Bcrypt turns a simple password into fixed-length characters called a hash.
+   * "connect-session-sequelize" - Connect-session-sequelize is a SQL session store using Sequelize.js.
+   * "dotenv" - Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env. 
+   * "express" - Write handlers for requests with different HTTP verbs at different URL paths (routes).
+   * "express-handlebars" - Handlebars compiles templates into JavaScript functions.
+   * "express-session" - Middleware module in Express. js that allows you to create sessions in your web application.
+   * "moment" - Allows displaying of date as per localization and in human readable format.
+   * "mysql2" - Creates a database for storing and manipulating data, defining the relationship of each table.
+   * "nodemon" - Nodemon is a command-line tool that helps with the speedy development of Node. js applications.
+   * "sequelize" - Sequelize is a Node. js-based Object Relational Mapper that makes it easy to work with MySQL, MariaDB, SQLite, PostgreSQL databases, and more. An Object Relational Mapper performs functions like handling database records by representing the data as objects.
 ## Screenshots
 
 This screenshot shows the homepage of the website and how it is presented.
