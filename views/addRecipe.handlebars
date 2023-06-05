@@ -1,5 +1,5 @@
 <div class="header_add_recipe"></div>
-
+{{#if loggedIn}}
 <form action="/add-recipes" method="POST">
   <div class="card add_recipe_card">
     <h3 class="card-header">Fill List to add recipe</h3>
@@ -29,3 +29,6 @@
     </div>
   </div>
 </form>
+{{else}}
+<h2 class="recipes_header">Please log in to access this page</h2>
+{{/if}}
