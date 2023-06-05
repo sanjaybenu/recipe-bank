@@ -14,6 +14,13 @@ This application is designed for food lovers.
 Through this app users can read recipes posted by users. Make comments or read comments on a recipe and can post their own recipes and share with the community.
 ## Screenshots
 
+![Recipes](https://github.com/sanjaybenu/recipe-bank/assets/123305537/a629911e-e5f2-4233-ab7d-69205cc737a0)
+![signin](https://github.com/sanjaybenu/recipe-bank/assets/123305537/9036123e-cbc8-41d8-afd0-8c90fc12d8e4)
+![Users](https://github.com/sanjaybenu/recipe-bank/assets/123305537/f6ee9952-a3c3-4059-9163-613927b4a56b)
+![added recipes](https://github.com/sanjaybenu/recipe-bank/assets/123305537/2744aaa6-e69a-4e68-8602-81c76e549307)
+![comments](https://github.com/sanjaybenu/recipe-bank/assets/123305537/179487a1-cb68-40cf-a060-816ff5fb7254)
+![Homepage](https://github.com/sanjaybenu/recipe-bank/assets/123305537/80111331-2dd0-4b00-b362-1a525ff8094d)
+![login](https://github.com/sanjaybenu/recipe-bank/assets/123305537/a3d41bb5-6f92-4149-84d2-89dda04b9195)
 
 
 ## Installation
