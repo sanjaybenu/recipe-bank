@@ -161,7 +161,7 @@ router.post('/register', async(req, res)=>{
      }
 
      User.create(newUser);
-     res.render('landingpage')
+    // res.render('landingpage')
      req.session.save(() => {
       req.session.loggedIn = true;
 
