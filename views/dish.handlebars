@@ -1,5 +1,4 @@
-{{!-- recipe --}}
-
+{{#if loggedIn}}
 <div class="card mb-3">
     <img src="{{renderRecipe.food_img}}" class="card-img-top dish_img" alt="No Image">
     <div class="card-body">
@@ -11,12 +10,13 @@
     </div>
 </div>
 
-{{!-- comments --}}
+
 <div class="dish_comment">
     <h2>Comments</h2>
-    {{#each renderRecipe.comments}}
+     {{#each renderRecipe.comments}}
     <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header">{{user_id}}</div>
+        <div class="card-header">{{user.username}}</div>
+       
         <div class="card-body">
             <p class="card-text">{{comment}}</p>
 
@@ -29,28 +29,8 @@
     {{/each}}
 </div>
 
+ {{>postcomments}}
 
-<form action="/comments" method="POST">
-    <div class="card add_recipe_card">
-        <h3 class="card-header">Add Comments</h3>
-        <div class="card-body">
-            <div class="mb-3">
-                <label for="name" class="form-label">Dish Name:</label>
-                <input type="text" class="form-control" id="comment" name="recipeName" value="{{renderRecipe.name}}"
-                    readonly>
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username:</label>
-                <input type="text" class="form-control" id="comment" name="username">
-            </div>
-
-            <div class="mb-3">
-                <label for="recipe" class="form-label">Comment:</label>
-                <textarea class="form-control" id="comment" rows="3" type="text" name="comment"></textarea>
-            </div>
-
-
-            <button class="btn btn-primary submit_btn" id="myBtn">Submit</button>
-        </div>
-    </div>
-</form>
+{{else}}
+<h2 class="recipes_header">Please log in to access this page</h2>
+{{/if}}

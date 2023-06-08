@@ -35,9 +35,13 @@ Comment.init(
     timestamp: {
       type: DataTypes.DATE,
       allowNull: false,
+      //************ To change time to Local ************//
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-      get() {
-        return moment(this.getDataValue('timestamp')).format('DD-MM-YYYY HH:mm:ss');
+get() {
+  const timestamp = this.getDataValue('timestamp');
+  const localTimestamp = moment.utc(timestamp).local();
+  return localTimestamp.format('DD-MM-YYYY HH:mm:ss');
+
       }
     }
   },
