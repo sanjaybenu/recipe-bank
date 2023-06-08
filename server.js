@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3001;
 
 // Sets up session and connect to our Sequelize db
 const sess = {
-  secret: 'Super secret secret',
+  secret: process.env.SECRET,
   cookie: {
     maxAge: 60 * 60 * 1000,
     httpOnly: true,
@@ -37,8 +37,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
-
-
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));
