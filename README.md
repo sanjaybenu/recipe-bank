@@ -50,6 +50,12 @@ This screenshot shows the user that they can comments on the recipes for feedbac
 ## Installation
 You can access this app by clicking on the following url
 https://your-recipe-bank.herokuapp.com/
+
+If application is done locally a ".env" file would need to be created with this data in it:-
+DB_NAME='recipe_db'
+DB_USER='root'
+DB_PASSWORD=''
+SECRET = 'supersecret'
 ## Usage
 User has to a registered member to access or add recipes. User also need to be a registered user to read and/or write comments.
 Click here to register.

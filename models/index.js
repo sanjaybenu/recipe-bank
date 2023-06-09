@@ -2,6 +2,8 @@ const User = require('./User');
 const Recipe = require('./Recipe');
 const Comment = require('./Comment');
 
+//define relationships bewteen models
+
 Recipe.belongsTo(User,{foreignKey:'user_id'});
 
 Comment.belongsTo(User,{foreignKey:'user_id'});

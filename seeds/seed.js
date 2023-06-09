@@ -8,6 +8,8 @@ const hashPassword = async (password) => {
   return hashedPassword;
 };
 
+//seed data//
+
 const seed = async () => {
   const userData = [
     {
