@@ -4,6 +4,7 @@ const moment = require('moment');
 
 class Comment extends Model {}
 
+//create comment model
 Comment.init( 
   {
     id: {
@@ -35,7 +36,7 @@ Comment.init(
     timestamp: {
       type: DataTypes.DATE,
       allowNull: false,
-      //************ To change time to Local ************//
+      //************ create a timestamp for when comment is posted ************//
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
 get() {
   const timestamp = this.getDataValue('timestamp');

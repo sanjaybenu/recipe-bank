@@ -1,3 +1,4 @@
+//create connection to our database, pass in MySQL information
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
