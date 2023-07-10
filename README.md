@@ -11,7 +11,7 @@
 * [Questions](#questions)
 ## Description
 This application is designed for food lovers and anyone that wants to cook something new.
-Through this app users can read recipes posted by users. Make comments or read comments on a recipe and can post their own recipes and share with the community. This allows the user to exprience different kinds of culture and cusines such as middle eastern, indian, french, japanese ect.
+Through this app users can read recipes posted by users. Make comments or read comments on a recipe and can post their own recipes and share with the community. This allows the user to exprience different kinds of culture and cusines such as middle eastern, indian, french, japanese etc.
 ##
 These are the dependaces that we used:
    * "bcrypt" - Bcrypt turns a simple password into fixed-length characters called a hash.
